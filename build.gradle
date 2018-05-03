@@ -25,11 +25,13 @@ deploy {
             addresses << "raspberrypi.local"
             user = "pi"
             password = "raspberry"
-            directory = "/home/pi/Desktop"
+            directory = "/home/pi"
         }
     }
     artifacts {
-        javaArtifact("pi4j-project") {
+        javaArtifact("torcs") {
+            predeploy << { execute "/home/pi/stop.sh" }
+            postdeploy << { execute "/home/pi/start.sh" }
             targets << "pi"
             jar = "jar"
         }
